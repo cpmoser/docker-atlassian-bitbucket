@@ -27,6 +27,7 @@ RUN set -x \
     && chown -R daemon:daemon "${BITBUCKET_INSTALL}/work" \
     && ln --symbolic          "/usr/lib/x86_64-linux-gnu/libtcnative-1.so" "${BITBUCKET_INSTALL}/lib/native/libtcnative-1.so" \
     && sed --in-place         's/^# umask 0027$/umask 0027/g' "${BITBUCKET_INSTALL}/bin/setenv.sh" \
+    && sed --in-place         's/JVM_SUPPORT_RECOMMENDED_ARGS=""/JVM_SUPPORT_RECOMMENDED_ARGS="-Djava.security.egd=file:\/dev\/.\/urandom"/g' "${BITBUCKET_INSTALL}/bin/setenv.sh" \
     && xmlstarlet             ed --inplace \
         --delete              "Server/Service/Engine/Host/@xmlValidation" \
         --delete              "Server/Service/Engine/Host/@xmlNamespaceAware" \
